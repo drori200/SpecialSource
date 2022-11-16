@@ -28,6 +28,8 @@
  */
 package net.md_5.specialsource;
 
+import lombok.libs.org.objectweb.asm.commons.*;
+import lombok.libs.org.objectweb.asm.commons.LocalVariablesSorter;
 import net.md_5.specialsource.repo.ClassRepo;
 import net.md_5.specialsource.repo.RuntimeRepo;
 import org.objectweb.asm.AnnotationVisitor;
@@ -35,7 +37,7 @@ import org.objectweb.asm.Handle;
 import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
-import org.objectweb.asm.commons.RemappingAnnotationAdapter;
+import org.objectweb.asm.commons.*;
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.FieldNode;
 import org.objectweb.asm.tree.MethodNode;
@@ -70,7 +72,7 @@ public class UnsortedRemappingMethodAdapter extends MethodVisitor { //Lex: Chang
     @Override
     public AnnotationVisitor visitAnnotationDefault() {
         AnnotationVisitor av = mv.visitAnnotationDefault();
-        return av == null ? av : new RemappingAnnotationAdapter(av, remapper);
+        return av == null ? av : new AnnotationRemapper(av, remapper);
     }
 
     @Override

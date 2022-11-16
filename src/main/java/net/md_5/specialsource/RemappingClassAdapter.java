@@ -68,7 +68,7 @@ import org.objectweb.asm.FieldVisitor;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 import net.md_5.specialsource.CustomRemapper;
-import org.objectweb.asm.commons.RemappingAnnotationAdapter;
+import org.objectweb.asm.commons.AnnotationRemapper;
 
 /**
  * A {@link ClassVisitor} for type remapping.
@@ -104,7 +104,7 @@ public class RemappingClassAdapter extends ClassVisitor {
     public AnnotationVisitor visitAnnotation(String desc, boolean visible) {
         AnnotationVisitor av;
         av = super.visitAnnotation(remapper.mapDesc(desc), visible);
-        return av == null ? null : createRemappingAnnotationAdapter(av);
+        return av == null ? null : createAnnotationRemapper(av);
     }
 
     @Override
@@ -179,9 +179,9 @@ public class RemappingClassAdapter extends ClassVisitor {
         };
     }
 
-    protected AnnotationVisitor createRemappingAnnotationAdapter(
+    protected AnnotationVisitor createAnnotationRemapper(
             AnnotationVisitor av) {
-        return new RemappingAnnotationAdapter(av, remapper);
+        return new AnnotationRemapper(av, remapper);
     }
     
     @Override

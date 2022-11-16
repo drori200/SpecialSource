@@ -31,7 +31,7 @@ package net.md_5.specialsource;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import lombok.ToString;
-import lombok.libs.org.objectweb.asm.Opcodes;
+import org.objectweb.asm.Opcodes;
 
 import java.util.Arrays;
 import java.util.HashMap;
