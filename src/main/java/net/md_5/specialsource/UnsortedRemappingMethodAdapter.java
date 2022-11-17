@@ -28,8 +28,8 @@
  */
 package net.md_5.specialsource;
 
-import lombok.libs.org.objectweb.asm.commons.*;
-import lombok.libs.org.objectweb.asm.commons.LocalVariablesSorter;
+import org.objectweb.asm.commons.*;
+import org.objectweb.asm.commons.LocalVariablesSorter;
 import net.md_5.specialsource.repo.ClassRepo;
 import net.md_5.specialsource.repo.RuntimeRepo;
 import org.objectweb.asm.AnnotationVisitor;
@@ -59,7 +59,7 @@ public class UnsortedRemappingMethodAdapter extends MethodVisitor { //Lex: Chang
 
     public UnsortedRemappingMethodAdapter(final int access, final String desc,
             final MethodVisitor mv, final CustomRemapper remapper, ClassRepo classRepo) {
-        this(Opcodes.ASM5, access, desc, mv, remapper, classRepo);
+        this(Opcodes.ASM9, access, desc, mv, remapper, classRepo);
     }
 
     protected UnsortedRemappingMethodAdapter(final int api, final int access,
@@ -79,7 +79,7 @@ public class UnsortedRemappingMethodAdapter extends MethodVisitor { //Lex: Chang
     public AnnotationVisitor visitAnnotation(String desc, boolean visible) {
         AnnotationVisitor av = mv.visitAnnotation(remapper.mapDesc(desc),
                 visible);
-        return av == null ? av : new RemappingAnnotationAdapter(av, remapper);
+        return av == null ? av : new AnnotationRemapper(av, remapper);
     }
 
     @Override
@@ -87,7 +87,7 @@ public class UnsortedRemappingMethodAdapter extends MethodVisitor { //Lex: Chang
             String desc, boolean visible) {
         AnnotationVisitor av = mv.visitParameterAnnotation(parameter,
                 remapper.mapDesc(desc), visible);
-        return av == null ? av : new RemappingAnnotationAdapter(av, remapper);
+        return av == null ? av : new AnnotationRemapper(av, remapper);
     }
 
     @Override
