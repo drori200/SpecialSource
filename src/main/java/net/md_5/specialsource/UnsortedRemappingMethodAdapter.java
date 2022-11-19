@@ -59,7 +59,7 @@ public class UnsortedRemappingMethodAdapter extends MethodVisitor { //Lex: Chang
 
     public UnsortedRemappingMethodAdapter(final int access, final String desc,
             final MethodVisitor mv, final CustomRemapper remapper, ClassRepo classRepo) {
-        this(Opcodes.ASM9, access, desc, mv, remapper, classRepo);
+        this(Opcodes.ASM7, access, desc, mv, remapper, classRepo);
     }
 
     protected UnsortedRemappingMethodAdapter(final int api, final int access,
